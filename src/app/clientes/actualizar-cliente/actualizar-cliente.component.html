@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row">
+        <div class="col-100">
+            <h1 class="button-and-title">
+                <span>Actualizar cliente</span>
+                <button routerLink="/clientes">Volver atrás</button>
+            </h1>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <form [formGroup]="form" (ngSubmit)="modificarCliente()">   <!-- que el formulario se componga de un formGroup. usá el objeto asignado a la variable form (que está en la lógica)-->
+            <div class="row">       <!-- ahora, puedo enlazar las inputs a las propiedades de form (que debería ser un objeto de tipo FormGroup)-->
+                <div class="col-100">
+                    <label>
+                        Nombre cliente
+                        <span class="danger" *ngIf="form.controls['nombre'].invalid">Obligatorio</span> <!-- acceso a campos controlados del formulario: antes:controls.nombre, ahora: controls['nombre'] (se cambia el . por la notación [''], entra las comillas escribir el nombre del campo del formulario)  -->
+                    </label>
+                    <input type="text" formControlName="nombre">    <!-- a través de la directiva formControlName enlazo esta input a la propiedad "nombre" del objeto asignado a form -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-100">
+                    <label>
+                        CIF
+                        <span class="danger" *ngIf="form.controls['cif'].invalid">Obligatorio (9 caracteres)</span>
+                    </label>
+                    <input type="text" formControlName="cif">   <!-- enlazo la entrada a la propiedad "cif"-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-100">
+                    <label>Dirección</label>
+                    <input type="text" formControlName="direccion"> <!-- y así con las demás entradas, hasta cubrir cada propiedad del formulario -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-100">
+                    <label>Localidad</label>
+                    <input type="text" formControlName="localidad">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-100 flex j-end">
+                    <button [disabled]="form.invalid" type="submit">Enviar</button> <!-- parece que por defecto type="submit". Ante la duda, lo dejamos especificado -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="col-100">
+            <h1 class="button-and-title">
+                <span>Listado de clientes</span>
+                <button routerLink="/crear-cliente">Nuevo Cliente</button>
+            </h1>
+            <hr>
+            <table>
+                <tr>    <!-- fila del encabezado-->
+                    <th>Nombre</th>
+                    <th>CIF</th>
+                    <th>Dirección</th>
+                    <th>Localidad</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr *ngFor="let cliente of clientes">   <!-- renderizar lista de clientes que llega de la bd -->
+                    <td>{{cliente.nombre}}</td>
+                    <td>{{cliente.cif}}</td>
+                    <td>{{cliente.direccion}}</td>
+                    <td>{{cliente.localidad}}</td>
+                    <td><button routerLink="/actualizar-cliente/{{cliente.cif}}" class="outline">   <!-- al pulsar en el boton, dirige al usuario a la ruta indicada(con el parametro cliente.cif interpolado:{{}})-->
+                            Actualizar
+                        </button></td>
+                    <td><button (click)="eliminarCliente(cliente.cif)"> <!-- tengo los datos del cliente sobre el que estoy iterando en el *ngFor. Aquí NO necesito interpolar -->
+                        Eliminar
+                    </button>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

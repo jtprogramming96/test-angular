@@ -1,1 +1,313 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  font-size: 0.8rem;
+  padding: 0.5em 1em;
+  border-radius: 0.4em;
+  border: 1px solid #008489;
+  background-color: #008489;
+  color: white;
+  transition: all 400ms ease-in-out;
+}
+button.outline {
+  color: #008489;
+  background-color: white;
+}
+button:hover {
+  background-color: #025b5e;
+}
+button.outline:hover {
+  color: white;
+  background-color: #025b5e;
+}
+button.icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+button.icon img {
+  margin-right: 0.3rem;
+}
+
+.button-and-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+hr {
+  margin: 1rem 0; /* 1rm de margen tanto arriba como abajo. Si no especifico el 0 para los laterales, toma el 1 rem como margen para arriba, abajo y los costados */
+}
+
+.card {
+  padding: 1rem;
+  margin: 1rem;
+  box-shadow: 2px 2px 4px grey;
+}
+.card h1 {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 0.5rem;
+}
+.card p:nth-of-type(1) {
+  margin-top: 1rem;
+}
+
+form {
+  width: 100%;
+}
+form .row {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+form .row label {
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+form .row label span.danger {
+  color: red;
+}
+form .row input {
+  border: 1px solid #67666e;
+  border-radius: 0.3rem;
+  font-size: 0.9rem;
+  padding: 0.5em 1em;
+  width: 100%;
+  transition: 400ms all ease-in-out;
+}
+form .row input:focus {
+  outline: none;
+}
+form .row.end {
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+form button[disabled] {
+  border: 1px solid grey;
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+table {
+  width: 100%;
+  margin-top: 1rem;
+}
+table th {
+  padding: 0.5rem 1rem;
+  background-color: #008489;
+  color: white;
+}
+table td {
+  padding: 0.5rem 1rem;
+  border: 1px solid #008489;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  transition: 600ms opacity linear;
+}
+
+.row {
+  display: flex;
+  padding: 1rem;
+}
+@media (max-width: 720px) {
+  .row {
+    flex-direction: column;
+    padding: 1rem 0.5rem;
+  }
+}
+
+.col-100 {
+  width: 100%;
+  padding: 0.5rem 1rem;
+}
+.col-75 {
+  width: 75%;
+  padding: 0.5rem 1rem;
+}
+.col-66 {
+  width: 66.6666%;
+  padding: 0.5rem 1rem;
+}
+.col-50 {
+  width: 50%;
+  padding: 0.5rem 1rem;
+}
+.col-33 {
+  width: 33.3333%;
+  padding: 0.5rem 1rem;
+}
+.col-25 {
+  width: 25%;
+  padding: 0.5rem 1rem;
+}
+@media (max-width: 720px) {
+  .col-75, .col-66, .col-50, .col-33, .col-25 {
+    width: 100%;
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.j-start {
+  justify-content: flex-start;
+}
+
+.j-end {
+  justify-content: flex-end;
+}
+
+.j-center {
+  justify-content: center;
+}
+
+.j-between {
+  justify-content: space-between;
+}
+
+.j-around {
+  justify-content: space-around;
+}
+
+.a-start {
+  align-items: flex-start;
+}
+
+.a-end {
+  align-items: flex-end;
+}
+
+.a-center {
+  align-items: center;
+}
+
+.m-t {
+  margin-top: 1rem;
+}
+
+.m-b {
+  margin-bottom: 1rem;
+}
+
+.m-l {
+  margin-left: 1rem;
+}
+
+.m-r {
+  margin-right: 1rem;
+}
+
+.m-t-small {
+  margin-top: 0.5rem;
+}
+
+.m-b-small {
+  margin-bottom: 0.5rem;
+}
+
+.m-l-small {
+  margin-left: 0.5rem;
+}
+
+.m-r-small {
+  margin-right: 0.5rem;
+}
+
+nav {
+  height: 80px;
+  width: 100%;
+  padding: 0 1rem;
+  box-shadow: 2px 2px 4px lightgray;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+nav div {
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+nav div.active {
+  color: #008489;
+}
+
+.player-box {
+  height: 120px;
+  max-width: 720px;
+  margin: 1rem auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: 10px;
+}
+.player-box.lakers {
+  border: 5px solid #552582;
+  color: #552582;
+  background-image: url("/assets/img/lakers.svg");
+}
+.player-box.celtics {
+  border: 5px solid #008348;
+  color: #008348;
+  background-image: url("/assets/img/celtics.svg");
+}
+.player-box.bulls {
+  border: 5px solid #CE1141;
+  color: #CE1141;
+  background-image: url("/assets/img/bulls.svg");
+}
+.player-box.no-team {
+  border: 5px solid grey;
+  color: grey;
+}
+
+/* Generales */
+html {
+  font-size: 22px;
+}
+@media (max-width: 960px) {
+  html {
+    font-size: 20px;
+  }
+}
+@media (max-width: 720px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  color: #67666e;
+}
+
+h1 {
+  font-size: 1.5rem;
+  color: #008489;
+}
+
+b {
+  color: #008489;
+}
+
+/*# sourceMappingURL=styles.css.map */
