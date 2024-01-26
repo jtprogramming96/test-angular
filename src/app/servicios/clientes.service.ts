@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators'; // for map
+import { environments } from 'src/environments/environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientesService {
 
-  endPointClientes: string = 'http://localhost:3000'; // puerto del servidor de solicitudes
+  endPointClientes: string = environments.urlBase; // puerto del servidor de solicitudes
 
   constructor(private http: HttpClient) { } // declaro, para el servicio, la variable http que es de tipo HttpCliente. Dicha variable me permite usar los métodos get,post,put y delete
 
