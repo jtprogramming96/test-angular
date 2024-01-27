@@ -14,7 +14,15 @@ button {
   color: white;
   transition: all 400ms ease-in-out;
 }
+button.color {
+  color: white;
+  background-color: #008489;
+}
 button.outline {
+  color: #008489;
+  background-color: white;
+}
+button.outline.soft {
   color: #008489;
   background-color: white;
 }
@@ -24,6 +32,10 @@ button:hover {
 button.outline:hover {
   color: white;
   background-color: #025b5e;
+}
+button.outline.soft:hover {
+  color: white;
+  background-color: #238a8edf;
 }
 button.icon {
   display: flex;
