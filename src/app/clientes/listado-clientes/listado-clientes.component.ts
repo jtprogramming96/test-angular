@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientesService } from 'src/app/servicios/clientes.service';
+import { ConfirmacionService } from 'src/app/servicios/confirmacion.service';
 
 @Component({
   selector: 'app-listado-clientes',
@@ -10,7 +11,8 @@ export class ListadoClientesComponent implements OnInit{
 
   clientes: any;
 
-  constructor(private clientesService: ClientesService) {}
+  constructor(private clientesService: ClientesService,
+              private confirmacionService: ConfirmacionService) {}  // importando el servicio de modal de confirmacion
 
   ngOnInit(): void {  // se lanza cada vez que se destruya y se vuelva a cargar el componente
       this.cargarClientes();
@@ -27,11 +29,22 @@ export class ListadoClientesComponent implements OnInit{
   }
 
   eliminarCliente(cif) {
-    this.clientesService.deleteClientes(cif)
+    const confirmationMessage = '¿Estás seguro de que quieres eliminar este elemento?';
+
+    this.confirmacionService.openConfirmationModal(confirmationMessage)
+      .then((confirmed) => {
+        if (confirmed) {
+          this.clientesService.deleteClientes(cif)
                         .subscribe((res:any) => {
                           this.cargarClientes();  // si se eliminó correctamente, se vuelve a cargar la lista de clientes mostrada
                         }, (err: any) => {  // subscribe permite un segundo parámetro, un callback para manejar el error (en caso de que haya uno)
                           console.log(err)
                         });
+        }
+      })
+      .catch(() => {
+        // Lógica en caso de rechazo o error
+      });
+    
   }
 }

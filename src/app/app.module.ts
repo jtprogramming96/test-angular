@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule} from '@angular/common/http'  // para el HttpClientModule
 import { AppRoutingModule } from './app-routing.module';
@@ -8,6 +8,9 @@ import { ListadoClientesComponent } from './clientes/listado-clientes/listado-cl
 import { CrearClienteComponent } from './clientes/crear-cliente/crear-cliente.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActualizarClienteComponent } from './clientes/actualizar-cliente/actualizar-cliente.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmacionModalComponent } from './confirmacion-modal/confirmacion-modal.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -15,13 +18,20 @@ import { ActualizarClienteComponent } from './clientes/actualizar-cliente/actual
     InicioComponent,
     ListadoClientesComponent,
     CrearClienteComponent,
-    ActualizarClienteComponent
+    ActualizarClienteComponent,
+    ConfirmacionModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule // librería de formularios
+    ReactiveFormsModule, // librería de formularios
+    NgbModule, ServiceWorkerModule.register('ngsw-worker.js', {
+  enabled: !isDevMode(),
+  // Register the ServiceWorker as soon as the application is stable
+  // or after 30 seconds (whichever comes first).
+  registrationStrategy: 'registerWhenStable:30000'
+})
   ],
   providers: [],
   bootstrap: [AppComponent]
