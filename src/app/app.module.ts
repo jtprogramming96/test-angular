@@ -8,6 +8,8 @@ import { ListadoClientesComponent } from './clientes/listado-clientes/listado-cl
 import { CrearClienteComponent } from './clientes/crear-cliente/crear-cliente.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActualizarClienteComponent } from './clientes/actualizar-cliente/actualizar-cliente.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmacionModalComponent } from './confirmacion-modal/confirmacion-modal.component';
 
 @NgModule({
   declarations: [
@@ -15,13 +17,15 @@ import { ActualizarClienteComponent } from './clientes/actualizar-cliente/actual
     InicioComponent,
     ListadoClientesComponent,
     CrearClienteComponent,
-    ActualizarClienteComponent
+    ActualizarClienteComponent,
+    ConfirmacionModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule // librería de formularios
+    ReactiveFormsModule, // librería de formularios
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
