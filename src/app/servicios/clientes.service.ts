@@ -21,6 +21,15 @@ export class ClientesService {
                 ); 
   }
 
+  getHoraDB() {
+    this.http.get(this.endPointClientes+ '/ping') // get recibe la url a la que vamos a hacer la petición
+                .pipe(  // para gestionar la respusta
+                  map((data: any) => {
+                    return data;
+                  })
+                ); 
+  }
+
   getCliente(cif) {
     return this.http.get(this.endPointClientes + '/' + cif)
     .pipe(  // para gestionar la respusta

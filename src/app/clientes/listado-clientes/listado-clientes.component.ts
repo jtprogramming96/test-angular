@@ -19,6 +19,7 @@ export class ListadoClientesComponent implements OnInit{
   }
 
   cargarClientes() {  // le pide al servidor la lista de clientes
+    console.log(this.clientesService.getHoraDB());  // solo para probar conexion a DB
     this.clientesService.getClientes()
                           .subscribe((res:any) => {
                             this.clientes = res;  // podemos asignar directamente res a la propiedad clientes, ya que res es la respuesta a solicitar(get) la ruta raíz, la cual devuelve un arreglo de clientes
