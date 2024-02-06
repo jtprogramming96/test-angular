@@ -1,3 +1,3 @@
 export const environments = {
-    urlBase: 'https://test-node-vt43.onrender.com'
+    urlBase: 'https://backend-node-7n9g.onrender.com'
 }
