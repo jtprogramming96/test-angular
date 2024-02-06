@@ -26,5 +26,20 @@
         ]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "push",
+      "urls": ["/api"],
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "3d",
+        "timeout": "10s",
+        "strategy": "freshness"
+      },
+      "push": {
+        "serviceWorkerChannelName": "ngsw:push"
+      }
+    }
   ]
 }

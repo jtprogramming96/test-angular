@@ -9,6 +9,7 @@ import { environments } from 'src/environments/environments';
 export class ClientesService {
 
   endPointClientes: string = environments.urlBase; // puerto del servidor de solicitudes
+  static endPointClientes: string;
 
   constructor(private http: HttpClient) { } // declaro, para el servicio, la variable http que es de tipo HttpCliente. Dicha variable me permite usar los métodos get,post,put y delete
 

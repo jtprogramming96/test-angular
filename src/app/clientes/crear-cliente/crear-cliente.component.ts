@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClientesService } from 'src/app/servicios/clientes.service';
+import { NotificacionService } from 'src/app/servicios/notificacion.service';
 
 @Component({
   selector: 'app-crear-cliente',
@@ -14,7 +15,8 @@ export class CrearClienteComponent {
   form: FormGroup;
 
   constructor(private clienteService: ClientesService,  // me traigo el servicio del cliente
-              private router: Router) {};               // para la navegación programática
+              private router: Router,
+              private notificacionService: NotificacionService) {};               // para la navegación programática
 
   /* Al levantarse el componente, se inicializa form*/
   ngOnInit(): void {
@@ -36,6 +38,16 @@ export class CrearClienteComponent {
                           console.log(err)
                         })
   
+  // Notificar al usuario
+  // this.notificacionService.mostrarNotificacion('Cliente agregado correctamente', {
+  //   body: 'Haz clic para ver la lista de clientes',
+  //   icon: 'icono.png',
+  //   actions: [
+  //     { action: 'verLista', title: 'Ver Lista' },
+  //     { action: 'cerrar', title: 'Cerrar' }
+  //   ]
+  // });
+
   // COMENTARIO: this.router.navigate(['/clientes']); a esto se le suele llamar "navegación programática"
                       }
 }
