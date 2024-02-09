@@ -10,6 +10,8 @@ import { ConfirmacionService } from 'src/app/servicios/confirmacion.service';
 export class ListadoClientesComponent implements OnInit{
 
   clientes: any;
+  hora: string;
+  fecha: Date;
 
   constructor(private clientesService: ClientesService,
               private confirmacionService: ConfirmacionService) {}  // importando el servicio de modal de confirmacion
@@ -19,7 +21,14 @@ export class ListadoClientesComponent implements OnInit{
   }
 
   cargarClientes() {  // le pide al servidor la lista de clientes
-    console.log(this.clientesService.getHoraDB());  // solo para probar conexion a DB
+    this.clientesService.getHoraDB()
+                          .subscribe((res:any) => {
+                            console.log(res.now);  // podemos asignar directamente res a la propiedad clientes, ya que res es la respuesta a solicitar(get) la ruta raíz, la cual devuelve un arreglo de clientes
+                                                  // y tampoco es necesario parsear dicha lista de json a javascript, ya que la libreria http en el servidor expressJS  lo hace por nosotros
+                          }, (err: any) => {  // subscribe permite un segundo parámetro, un callback para manejar el error (en caso de que haya uno)
+                            console.log(err)
+                          });
+    
     this.clientesService.getClientes()
                           .subscribe((res:any) => {
                             this.clientes = res;  // podemos asignar directamente res a la propiedad clientes, ya que res es la respuesta a solicitar(get) la ruta raíz, la cual devuelve un arreglo de clientes

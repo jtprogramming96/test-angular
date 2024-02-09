@@ -1,0 +1,98 @@
+El deploy lo haremos utilizando el siguiente recurso:
+https://www.youtube.com/watch?v=Mg5GqHD6z-w
+
+## 1° Configurar y subir backend a Render (hosting de prueba gratuito):
+Para ello usaremos yarn (aunque podríamos usar tranquilamente el npm de siempre). yarn: Nos ayuda a inicializar nuestro proyecto, instalar paquetes de terceros y gestionar dependecias.
+1- Instalar yarn: Con npm instalado, ejecutar: npm install --global yarn	
+2- Iniciar yarn en el proyecto: yarn init
+	2.a: indicar los parámetros del proyecto: el entry point sería el archivo de entrada a la aplicación(el main).
+3- Usando yarn para instalar librerias de terceros:
+	3.a: yarn add nodemon -D	// -D indica que se instalará como dependencia de desarollo
+	3.b: USAR YARN(o npm): creará el archivo yarn.lock (o package-lock.json si usamos npm en lugar de yarn). Este archivo no se toca. Lo usa para gestionar las dependecias del proyecto.
+4- archivos a commitear al repositorio: el main(app.js o el index.js) y el package.json (ya que contiene las dependecias del proyecto):
+	git add app.js
+	git add package.json
+
+5- Al deployear en Render:
+Gestor de dependencias: yanr
+
+	* "Build command" nos pide que comando usar para hacer el deploy. Para esta prueba, simplemente le decimos que use yarn (para instalar las dep's del proyecto TODAS). Para SOLO INSTALAR LAS DEPENDENCIAS DE PRODUCCIÓN:
+		yarn install --production ó
+		en nuestra api servidor tendría que haber una variable de entorno, la cual nos debería indicar que nos encontramos en un ambiente de producción, con lo cual no instalaría dependencias de desarrollo (como por ejemplo, nodemon).
+	COMO ESTO ES UNA PRUEBA, usaremos solo: yarn (se encargará de todo).
+	* "Start Command" nos pide el comando para iniciar el servidor. Sin yarn, sería:
+		node app.js
+	(siendo app.js el archivo main del servidor), pero como estamos usando yarn para gestionar las dependecias, usaremos:
+		yarn start
+	comando con el cual yarn ejecutará el script "start"
+
+	*Puertos: para ello usaremos variables de entorno:
+		1 creamos el archivo .env en nuestro proyecto (a la altura del main de la aplicación, app.js o index.js): Este .env es el que se usará a nivel local. El servidor Render proveerá a nuestro proyecto su propio .env con variables de entorno dadas por Render (o el host que sea). En RENDER, si DESAMOS AÑADIR VARIABLES DE ENTORNO EN PRODUCCIÓN, la sección ENVIROMENTS nos permite añadir variables de entorno a NIVEL DE PRODUCCIÓN.
+			1.1 dentro del archivo .env local, creamos las variables de entorno a utilizar, que son del tipo CLAVE=VALOR (todo en mayúsuclas preferentemente),
+		2 instalamos dotenv: yarn add dotenv -D	// yarn, agrega porfavor la librería dotenv al proyecto como dependencia de desarrollo (por eso el -D).
+		3 En el archivo main, lo más pronto posible:
+			3.1 requerimos dotenv: const dotenv = require('dotenv');	// obtenemos el servicio 'dotenv' y lo guardamos en una variable con el mismo nombre
+			3.2 configuramos dotenv: dotenv.configure();	
+debemos guardar en una costante, el puerto asignado por el servidor host (Render) del backend (nuestra app Node) y usar ese puerto, ya no el 3000 o el que nosotros queramos.
+		Podemos obtener dicho puerto a través de process.env.port; metodo que nos devuelve el puerto que nos asignó Render para nuestra app.
+		PARA agregar una variable de entorno a la aplicación backend, instalamos la libreria dotenv desde yarn:
+			
+
+## 2° Deployear app Angular en Vercel:
+Gestor de dependencias: npm
+
+
+
+## 3° Conectar el servidor a la aplicación Angular.
+
+NOTA:
+* el servidor no está conectado a una BD. Sino que tenemos algunos datos hardcodeados en el main.js del servidor (el arreglo clientes).
+
+* INSTALACIÓN DE DEPENDENCIAS: 	si usamos yarn: yarn install
+				si usamos npm: npm install
+
+*.gitignore: este archivo contendrá que archivos y carpetas git debe ignorar (porque son irrelevantes, muy pesadas, etc).
+
+* "scripts" de package.json: son sentencias que se pueden ejecutar usando yarn (o npm):
+	agregamos "dev": "nodemon app.js"	// el comando yarn dev ejecutar el script dev, entonces yarn se encarga de ejecutar el comando asociado a "dev" que en este caso es "nodemon app.js". justamente en "dev" se colocan las herramietas que usaremos durante el desarrollo de nuestro proyecto.
+	* por otra parte nodemon se encarga mantener viva la aplicacación web durante el desarrollo, refrescandola cada vez que se actualizen los archivos que se indican en "watching extensions" que en este caso son los tipo: js,mjs,cjs,json (como se observa en la consola al ejecutar yarn dev).
+
+## COMANDOS UTILES YARN:
+yarn import: creará el yarn.lock file desde : o un package-lock.json (generado por npm) o desde la carpeta node_modules del proyecto
+
+	### TIPS ÚTILES YARN
+	El package json es suficiente tanto para generar la carpeta de dependencias (node_modules) como el .lock (ya sea desde npm o yarn), por si hubiera problemas con alguno de estos dos elementos mencionados.
+
+## GITIGNORE IMPORTANTES
+/node_modules	## pesa mucho y se puede generar desde el package.json
+.env		## contiene información sensible
+
+-------------
+Al parecer:
+
+FRONTEND:
+debo buildear en forma de producción con un archivo de variables de entorno de producción
+
+### BOOTSTRAP
+
+para implementarlo en un proyecto creado:
+1. instalar bootstrap (con sus dependencias necesarias):
+	npm install bootstrap jquery @popperjs/core
+2. en Angular.json, agregar a "styles" y "scripts". Debe quedarnos así:
+	"styles": [
+	  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+	  "src/styles.scss"
+	],
+	"scripts": [
+	  "node_modules/jquery/dist/jquery.min.js",
+	  "node_modules/@popperjs/core/dist/umd/popper.min.js",
+	  "node_modules/bootstrap/dist/js/bootstrap.min.js"
+	]
+Con esto ya tenemos instalado bootstrap en nuestro proyecto.
+
+3. Ahora DEBEMOS AGRGAR bootstrap a nuestro proyecto, sino, aunque lo tengamos instalado, no lo va a reconocer:
+	ng add @ng-bootstrap/ng-bootstrap
+4. agregar "NgbModule" a los imports de NgModules, en App.module.ts (generará automaticamente el import arriba:
+	import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; sino agregarlo manualmente).
+5. Listo, ya puedes utilizar todas las funcionalidades de bootstrap.
+
