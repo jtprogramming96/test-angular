@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ActualizarClienteComponent } from './clientes/actualizar-cliente/actualizar-cliente.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmacionModalComponent } from './confirmacion-modal/confirmacion-modal.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ConfirmacionModalComponent } from './confirmacion-modal/confirmacion-mo
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule, // librería de formularios
-    NgbModule
+    NgbModule,
+    NgxPaginationModule,  // para usar pipe paginate en el proyecto
   ],
   providers: [],
   bootstrap: [AppComponent]

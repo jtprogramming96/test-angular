@@ -4,6 +4,19 @@
             <h1 class="button-and-title">
                 <span>Listado de clientes</span>
                 <button routerLink="/crear-cliente">Nuevo Cliente</button>
+                <!-- scrollbar elementos por página -->
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                      <label class="control-label" for="noOfRows">No. de elementos</label>
+                    </div>
+                    <div class="col-auto">
+                      <select name="noOfRows" (change)="onTableSizeChange($event)" class="form-select form-select-sm">
+                        <option *ngFor="let size of tableSize" [ngValue]="size">
+                          {{ size }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
             </h1>
             <hr>
             <table>
@@ -15,7 +28,8 @@
                     <th></th>
                     <th></th>
                 </tr>
-                <tr *ngFor="let cliente of clientes">   <!-- renderizar lista de clientes que llega de la bd -->
+                <!-- <tr *ngFor="let cliente of clientes">   renderizar lista de clientes que llega de la bd -->
+                <tr *ngFor="let cliente of clientes | paginate : paginacionConfig; let i = index">  <!-- el pipe paginate es proporcionado al importar NgxPaginationModule en app.module.ts-->
                     <td>{{cliente.nombre}}</td>
                     <td>{{cliente.cif}}</td>
                     <td>{{cliente.direccion}}</td>
@@ -30,6 +44,11 @@
                     </td>
                 </tr>
             </table>
+            <!-- prevPage - nextPage-->
+            <div class="d-flex justify-content-center">
+                <pagination-controls  previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+                </pagination-controls>
+              </div>
         </div>
     </div>
 </div>
