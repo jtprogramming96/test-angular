@@ -29,7 +29,12 @@
                     <th></th>
                 </tr>
                 <!-- <tr *ngFor="let cliente of clientes">   renderizar lista de clientes que llega de la bd -->
-                <tr *ngFor="let cliente of clientes | paginate : paginacionConfig; let i = index">  <!-- el pipe paginate es proporcionado al importar NgxPaginationModule en app.module.ts-->
+                <tr *ngFor="let cliente of clientes | paginate : {
+                                        itemsPerPage: itemsPerPage,
+                                        currentPage: currentPage,
+                                        totalItems: totalItems
+                                      };
+                 let i = index">  <!-- el pipe paginate es proporcionado al importar NgxPaginationModule en app.module.ts-->
                     <td>{{cliente.nombre}}</td>
                     <td>{{cliente.cif}}</td>
                     <td>{{cliente.direccion}}</td>
@@ -45,8 +50,13 @@
                 </tr>
             </table>
             <!-- prevPage - nextPage-->
+            <hr>
             <div class="d-flex justify-content-center">
-                <pagination-controls  previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+                <pagination-controls
+                    previousLabel="Anterior"
+                    nextLabel="Siguiente"
+                    [responsive]="true"
+                    (pageChange)="onTableDataChange($event)">
                 </pagination-controls>
               </div>
         </div>

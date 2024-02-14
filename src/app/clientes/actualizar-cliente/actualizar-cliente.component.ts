@@ -25,7 +25,7 @@ export class ActualizarClienteComponent implements OnInit{
     //console.log(this.cif);   mostramos por consola que se extrajo bien
     this.clientesService.getCliente(this.cif) // acá usamos el servicio
                         .subscribe((res: any) => {  // nos suscribimos a la respuesta que nos dé
-                          this.cliente = res.cliente;  // rta para todo OK
+                          this.cliente = res;  // rta para todo OK
                           this.form.patchValue(this.cliente); // al formulario, pasarle los valores de los datos del objeto javascript (angular se encarga de inicializar cada campo del formulario con el respectivo valor del objeto js)
                         }, (err: any) => {
                           console.log(err)                    // rta para el error
@@ -36,14 +36,14 @@ export class ActualizarClienteComponent implements OnInit{
       direccion: new FormControl(''), // etc
       localidad: new FormControl(''),
     });
-                      }
+  }
 
-    modificarCliente() {
-      this.clientesService.putClientes(this.form.value, this.cif)
-                          .subscribe((res: any) => {  // nos suscribimos a la respuesta que nos dé
-                            this.router.navigate(['/clientes']);
-                          }, (err: any) => {
-                            console.log(err)                    // si hay error, lo mandamos a la consola
-                          });
-    }
+  modificarCliente() {
+    this.clientesService.putClientes(this.form.value, this.cif)
+                        .subscribe((res: any) => {  // nos suscribimos a la respuesta que nos dé
+                          this.router.navigate(['/clientes']);
+                        }, (err: any) => {
+                          console.log(err)                    // si hay error, lo mandamos a la consola
+                        });
+  }
 }
