@@ -13,7 +13,7 @@ export class ListadoClientesComponent implements OnInit, PaginacionConfig{
 
   // inicialización de valores
   //clientes: any;
-  title = 'paginacion-ngx-de-clientes';
+  title = '';
 
   currentPage: number = 1;
   itemsPerPage: number = 5;
@@ -39,24 +39,45 @@ export class ListadoClientesComponent implements OnInit, PaginacionConfig{
       this.cargarClientes();
   }
 
+  solicitarParametros(searchTitle: string, page: number, pageSize: number): any {
+    let params: any = {};
+
+    if (searchTitle) {
+      params[`title`] = searchTitle;
+    }
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
+  }
+
   cargarClientes() {  // le pide al servidor la lista de clientes
-     this.clientesService.getClientes()
+    const parametros = this.solicitarParametros(this.title, this.currentPage, this.itemsPerPage);
+
+     this.clientesService.getClientes(parametros)
                           .subscribe((res:any) => {
-                            this.clientes = res;  // podemos asignar directamente res a la propiedad clientes, ya que res es la respuesta a solicitar(get) la ruta raíz, la cual devuelve un arreglo de clientes
-                            this.paginacionConfig.totalItems = res.length;                      // y tampoco es necesario parsear dicha lista de json a javascript, ya que la libreria http en el servidor expressJS  lo hace por nosotros
+                            //console.log(JSON.stringify(res));
+                            this.clientes = res.clientes;  // podemos asignar directamente res a la propiedad clientes, ya que res es la respuesta a solicitar(get) la ruta raíz, la cual devuelve un arreglo de clientes
+                            this.totalItems = res.totalItems;                      // y tampoco es necesario parsear dicha lista de json a javascript, ya que la libreria http en el servidor expressJS  lo hace por nosotros
                           }, (err: any) => {  // subscribe permite un segundo parámetro, un callback para manejar el error (en caso de que haya uno)
                             console.log(err)
                           });
   }
 
   onTableDataChange(event:any){
-    this.paginacionConfig.currentPage  = event;
+    this.currentPage = event;
     this.cargarClientes();
   }
   
   onTableSizeChange(event:any): void {
-    this.paginacionConfig.itemsPerPage = event.target.value;
-    this.paginacionConfig.currentPage = 1;
+    this.itemsPerPage = event.target.value;
+    this.currentPage = 1;
     this.cargarClientes();
   }
 

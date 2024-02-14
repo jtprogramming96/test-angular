@@ -12,8 +12,8 @@ export class ClientesService {
 
   constructor(private http: HttpClient) { } // declaro, para el servicio, la variable http que es de tipo HttpCliente. Dicha variable me permite usar los métodos get,post,put y delete
 
-  getClientes() { // obtener clientes
-    return this.http.get(this.endPointClientes) // get recibe la url a la que vamos a hacer la petición
+  getClientes(params) { // obtener clientes
+    return this.http.get(this.endPointClientes, { params }) // get recibe la url a la que vamos a hacer la petición
                 .pipe(  // para gestionar la respusta
                   map((data: any) => {
                     return data;
@@ -23,7 +23,7 @@ export class ClientesService {
 
   getCliente(cif) {
     return this.http.get(this.endPointClientes + '/' + cif)
-    .pipe(  // para gestionar la respusta
+    .pipe(  // para gestionar la respuesta
                   map((data: any) => {
                     return data;
                   })

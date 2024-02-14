@@ -1,3 +1,3 @@
 export const environments = {
-    urlBase: 'http://192.168.0.103:3000'
+    urlBase: 'http://localhost:3000'
 }
